@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -9,6 +10,9 @@ const db = require("./db/index");
 
 // Defining the body property in the response
 app.use(express.json());
+
+// To avoid cors problem
+app.use(cors());
 
 // Building a restful API
 // DEFINING THE ROUTES
@@ -22,7 +26,7 @@ app.get("/api/v1/restaurants", async (req, res) => {
             status: "success",
             results: results.rows.length,
             data: {
-                restaurant: results.rows
+                restaurants: results.rows
             }
         });
     }
@@ -40,7 +44,7 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
             status: "success",
             result: result.rows.length,
             data: {
-                restaurant: result.rows[0]
+                restaurants: result.rows[0]
             }
         });
     }
@@ -62,7 +66,7 @@ app.post("/api/v1/restaurants/", async (req, res) => {
             status: "success",
             result: result.rows.length,
             data: {
-                restaurant: result.rows[0]
+                restaurants: result.rows[0]
             }
         });
     }
@@ -83,7 +87,7 @@ app.put("/api/v1/restaurants/:id", async (req, res) => {
             status: "success",
             result: result.rows.length,
             data: {
-                restaurant: result.rows[0]
+                restaurants: result.rows[0]
             }
         });
     }
