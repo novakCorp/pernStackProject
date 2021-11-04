@@ -1,21 +1,47 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import RestaurantFinder from '../apis/RestaurantFinder';
+import { RestaurantsContext } from '../context/RestaurantContext';
 
 const AddRestaurant = () => {
+
+    const { addRestaurants } = useContext(RestaurantsContext);
+    const [name, setName] = useState("");
+    const [location, setLocation] = useState("");
+    const [priceRange, setPriceRange] = useState("Price Range");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await RestaurantFinder.post("/", {
+                name: name,
+                location: location,
+                price_range: priceRange
+            })
+
+            console.log(response);
+            addRestaurants(response.data.data.restaurants);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
 
         <div className="mb-4">
             <form action="">
                 <div className="row">
                     <div className="col">
-                        <input type="text" className="form-control" placeholder="name" />
+                        <input value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" placeholder="name" />
                     </div>
 
                     <div className="col">
-                        <input type="text" className="form-control" placeholder="location" />
+                        <input value={location} onChange={(e) => setLocation(e.target.value)} type="text" className="form-control" placeholder="location" />
                     </div>
 
                     <div className="col">
-                        <select className="form-select">
+                        <select value={priceRange} onChange={(e) => setPriceRange(e.target.value)} className="form-select">
                             <option disabled>Price Range</option>
                             <option value="1">$</option>
                             <option value="2">$$</option>
@@ -26,11 +52,10 @@ const AddRestaurant = () => {
                     </div>
 
                     <div className="col">
-                        <button className="btn btn-primary">
+                        <button onClick={handleSubmit} type="submit" className="btn btn-primary">
                             Add
                         </button>
                     </div>
-
 
                 </div>
             </form>
