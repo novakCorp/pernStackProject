@@ -29,8 +29,8 @@ const RestaurantList = (props) => {
     }, []);
 
 
-    const handleDelete = async (id) => {
-
+    const handleDelete = async (e, id) => {
+        e.stopPropagation();
         try {
             // we're passing the id to delete the specific route in the api
             const response = await RestaurantFinder.delete(`/${id}`);
@@ -46,9 +46,15 @@ const RestaurantList = (props) => {
         }
     }
 
-    const handleUpdate = (id) => {
+    const handleUpdate = (e, id) => {
+        e.stopPropagation();
         // redirect to the page we're looking for
         history.push(`/restaurants/${id}/update`);
+    }
+
+
+    const handleRestaurantSelect = (id) => {
+        history.push(`/restaurants/${id}`);
     }
 
     return (
@@ -69,13 +75,13 @@ const RestaurantList = (props) => {
                     {restaurants &&
                         restaurants.map((restaurant) => {
                             return (
-                                <tr key={restaurant.id}>
+                                <tr onClick={() => handleRestaurantSelect(restaurant.id)} key={restaurant.id}>
                                     <td> {restaurant.name} </td>
                                     <td> {restaurant.location} </td>
                                     <td> {"$".repeat(restaurant.price_range)} </td>
                                     <td> reviews </td>
-                                    <td> <button onClick={() => handleUpdate(restaurant.id)} className="btn btn-warning">Update</button> </td>
-                                    <td> <button onClick={() => handleDelete(restaurant.id)} className="btn btn-danger">Delete</button> </td>
+                                    <td> <button onClick={(e) => handleUpdate(e, restaurant.id)} className="btn btn-warning">Update</button> </td>
+                                    <td> <button onClick={(e) => handleDelete(e, restaurant.id)} className="btn btn-danger">Delete</button> </td>
                                 </tr>
                             );
                         })}
