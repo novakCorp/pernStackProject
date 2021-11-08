@@ -8,3 +8,22 @@ CREATE TABLE restaurants (
 );
 
 insert into restaurants(name, location, price_range) values ('MCDonals', 'New York', 3);
+
+
+-- table reviews
+CREATE TABLE reviews(
+
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    restaurant_id BIGINT NOT NULL REFERENCES restaurants(id),
+    name VARCHAR(50) NOT NULL,
+    review TEXT NOT NULL,
+    rating INT NOT NULL CHECK(rating >= 1 and rating <= 5)
+);
+
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Andres','Bad restaurant', 1);
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Tomas','Bad restaurant', 2);
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Kelly','Bad restaurant and lazy people', 1);
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Sergio','Bad restaurant', 1);
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Miguel','Bad restaurant', 1);
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Luis','Bad restaurant', 1);
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Diego','Bad restaurant', 1);
