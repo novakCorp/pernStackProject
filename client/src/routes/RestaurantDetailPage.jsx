@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { RestaurantsContext } from '../context/RestaurantContext';
 import RestaurantFinder from '../apis/RestaurantFinder';
 import StarRating from '../components/StartRating';
+import Reviews from '../components/Reviews';
 
 const RestaurantDetailPage = (props) => {
 
@@ -27,7 +28,13 @@ const RestaurantDetailPage = (props) => {
 
     return (
         <div>
-            {selectedRestaurant && <StarRating rating={2} />}
+            {selectedRestaurant && (
+                <>
+                    <div>
+                        <Reviews />
+                    </div>
+                </>
+            )}
         </div>
     )
 }
