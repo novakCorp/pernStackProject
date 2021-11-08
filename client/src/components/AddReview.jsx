@@ -1,10 +1,35 @@
 import React, { useState } from 'react';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
+import RestaurantFinder from '../apis/RestaurantFinder';
 
 const AddReview = () => {
+    // browser history
+    const history = useHistory();
+    const location = useLocation();
+    // values that arrive in the url
+    const { id } = useParams();
 
     const [name, setName] = useState();
     const [reviewText, setReviewText] = useState();
     const [rating, setRating] = useState("Rating");
+
+    const handleSubmitReview = async (e) => {
+        try {
+            e.preventDefault();
+            const response = await RestaurantFinder.post(`/${id}/addReview`, {
+                name,
+                review: reviewText,
+                rating
+            });
+            // navigating back ann them come back to refresh the page
+            history.push("/");
+            history.push(location.pathname);
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+    }
 
     return (
         <div className="mb-2">
@@ -49,7 +74,7 @@ const AddReview = () => {
                 </div>
                 <button
                     type="submit"
-
+                    onClick={handleSubmitReview}
                     className="btn btn-primary"
                 >
                     Submit
