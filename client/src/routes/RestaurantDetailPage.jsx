@@ -4,6 +4,7 @@ import { RestaurantsContext } from '../context/RestaurantContext';
 import RestaurantFinder from '../apis/RestaurantFinder';
 import StarRating from '../components/StartRating';
 import Reviews from '../components/Reviews';
+import AddReview from '../components/AddReview';
 
 const RestaurantDetailPage = (props) => {
 
@@ -15,7 +16,7 @@ const RestaurantDetailPage = (props) => {
             const fetchData = async () => {
                 const response = await RestaurantFinder.get(`/${id}`);
                 console.log(response);
-                setSelectedRestaurant(response.data.data.restaurants);
+                setSelectedRestaurant(response.data.data);
             }
             fetchData();
         }
@@ -30,9 +31,11 @@ const RestaurantDetailPage = (props) => {
         <div>
             {selectedRestaurant && (
                 <>
-                    <div>
-                        <Reviews />
+                    <h1>{selectedRestaurant.restaurants.name}</h1>
+                    <div className="mt-3">
+                        <Reviews reviews={selectedRestaurant.reviews} />
                     </div>
+                    <AddReview />
                 </>
             )}
         </div>
