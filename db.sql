@@ -24,6 +24,6 @@ insert into reviews (restaurant_id, name, review, rating) values(1, 'Andres','Ba
 insert into reviews (restaurant_id, name, review, rating) values(1, 'Tomas','Bad restaurant', 2);
 insert into reviews (restaurant_id, name, review, rating) values(1, 'Kelly','Bad restaurant and lazy people', 1);
 insert into reviews (restaurant_id, name, review, rating) values(1, 'Sergio','Bad restaurant', 1);
-insert into reviews (restaurant_id, name, review, rating) values(1, 'Miguel','Bad restaurant', 1);
-insert into reviews (restaurant_id, name, review, rating) values(1, 'Luis','Bad restaurant', 1);
-insert into reviews (restaurant_id, name, review, rating) values(1, 'Diego','Bad restaurant', 1);
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Miguel','Bad restaurant', 2);
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Luis','Bad restaurant', 2);
+insert into reviews (restaurant_id, name, review, rating) values(1, 'Diego','Bad restaurant', 2);
