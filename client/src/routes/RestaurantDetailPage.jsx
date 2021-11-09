@@ -4,6 +4,7 @@ import { RestaurantsContext } from '../context/RestaurantContext';
 import RestaurantFinder from '../apis/RestaurantFinder';
 import Reviews from '../components/Reviews';
 import AddReview from '../components/AddReview';
+import StarRating from '../components/StartRating';
 
 const RestaurantDetailPage = (props) => {
 
@@ -20,7 +21,6 @@ const RestaurantDetailPage = (props) => {
             fetchData();
         }
 
-
         catch (err) {
             console.log(err);
         }
@@ -30,7 +30,17 @@ const RestaurantDetailPage = (props) => {
         <div>
             {selectedRestaurant && (
                 <>
-                    <h1>{selectedRestaurant.restaurants.name}</h1>
+                    <h1 className="text-center display 1">
+                        {selectedRestaurant.restaurants.name}
+                    </h1>
+                    <div className="text-center">
+                        <StarRating rating={selectedRestaurant.restaurants.average_rating} />
+                        <span className="text-warning ml-1">
+                            {selectedRestaurant.restaurants.count
+                                ? `(${selectedRestaurant.restaurants.count})`
+                                : "(0)"}
+                        </span>
+                    </div>
                     <div className="mt-3">
                         <Reviews reviews={selectedRestaurant.reviews} />
                     </div>
